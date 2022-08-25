@@ -1,21 +1,39 @@
-const scoresList = [
-  { name: 'Kwaleyela', score: 100 },
-  { name: 'David', score: 80 },
-  { name: 'Haamid', score: 100 },
-  { name: 'Festus', score: 100 },
-  { name: 'Musanzia', score: 75 },
-];
+const scoreContainer = document.getElementById('scores');
+const requestURL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/Zl4d7IVkemOTTVg2abce/scores/';
+
+let scoresArray = [];
+
+const gameScores = async () => {
+  const request = new Request(requestURL);
+  const response = await fetch(request)
+    .then((res) => res.json())
+    .then((data) => data.result)
+    .catch(() => 'error');
+  return response;
+};
 
 const displayScores = () => {
-  const scoreContainer = document.getElementById('scores');
-  scoreContainer.innerHTML = '';
-  scoresList.forEach((user) => {
-    scoreContainer.innerHTML += `
-      <li>
-      <p>${user.name}: ${user.score}</p>
-      </li>
-      `;
+  gameScores().then((res) => {
+    if (typeof res === 'object') {
+      scoresArray = Array.from(res);
+      if (scoresArray.length > 0) {
+        scoresArray.forEach((score) => {
+          scoreContainer.innerHTML = `<li><p>${score.user}: ${score.score}</p></li>`;
+        });
+      }
+    }
   });
 };
 
+const updateScore = async (data) => {
+  await fetch(requestURL, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: { 'Content-Type': 'application/json' },
+  }).then((res) => res.json())
+    .then((response) => console.log('Success:', JSON.stringify(response)));
+};
+
+exports.gameScores = gameScores;
 exports.displayScores = displayScores;
+exports.updateScore = updateScore;
