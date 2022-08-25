@@ -16,9 +16,10 @@ const displayScores = () => {
   gameScores().then((res) => {
     if (typeof res === 'object') {
       scoresArray = Array.from(res);
+      scoreContainer.innerHTML = '';
       if (scoresArray.length > 0) {
         scoresArray.forEach((score) => {
-          scoreContainer.innerHTML = `<li><p>${score.user}: ${score.score}</p></li>`;
+          scoreContainer.innerHTML += `<li><p>${score.user}: ${score.score}</p></li>`;
         });
       }
     }
@@ -30,8 +31,7 @@ const updateScore = async (data) => {
     method: 'POST',
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
-  }).then((res) => res.json())
-    .then((response) => console.log('Success:', JSON.stringify(response)));
+  }).then((res) => res.json());
 };
 
 exports.gameScores = gameScores;

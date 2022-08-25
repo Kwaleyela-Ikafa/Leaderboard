@@ -11,9 +11,7 @@ refresh.addEventListener('click', () => {
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = form.querySelector('input[type = "text"]').value;
-  console.log(name);
   const userScore = form.querySelector('input[type = "number"]').value;
-  console.log(userScore);
   if (name !== '' && userScore !== '') {
     const data = {
       user: name,
@@ -23,3 +21,5 @@ form.addEventListener('submit', (e) => {
     form.reset();
   }
 });
+
+displayScores();
