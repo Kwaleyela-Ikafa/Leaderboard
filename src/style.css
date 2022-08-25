@@ -21,6 +21,10 @@ body {
   border-radius: 20px;
 }
 
+li:nth-child(even) {
+  background-color: rgb(167, 164, 164);
+}
+
 .recent-scores {
   background-color: whitesmoke;
   border-radius: 12px;
