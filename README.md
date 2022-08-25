@@ -22,7 +22,7 @@ To get a local copy up and running follow these simple example steps.
 
 - git clone git@github.com:Kwaleyela-Ikafa/Leaderboard.git
 - cd Leaderboard
-- Git switch Branch-B
+- Git switch Branch-C
 - npm install
 - npm start
 
